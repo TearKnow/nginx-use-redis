@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  # 使用官方镜像，开启集群模式
+  redis-cluster:
+    image: redis:7.0-alpine
+    command: redis-server --cluster-enabled yes --cluster-config-file nodes.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - ./redis_data:/data  # 将容器内的 /data 映射到当前目录下的 redis_data 文件夹
+    networks:
+      - redis-net
+
+  openresty:
+    image: openresty/openresty:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf:ro
+      - ./lua:/usr/local/openresty/nginx/lua:ro
+      - ./lualib:/usr/local/openresty/nginx/lualib:ro
+    networks:
+      - redis-net
+    depends_on:
+      - redis-cluster
+
+networks:
+  redis-net:
+    driver: bridge

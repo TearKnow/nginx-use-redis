@@ -1,0 +1,2 @@
+# Ignore Redis data directory
+redis_data/
