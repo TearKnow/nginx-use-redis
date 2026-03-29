@@ -1,10 +1,12 @@
-
-
-### 调试
-http://localhost:8080/api?id=888  第一次hit false，第二次就是true了
-
 `可以在openresty容器中查看日志。`
 
+### 操作步骤
+```
+1. docker-compose up -d
+2. docker exec -it $(docker ps -qf "name=redis-cluster") redis-cli CONFIG SET cluster-announce-ip redis-cluster
+3. docker-compose restart openresty
+4. http://localhost:8080/api?id=888  第一次hit false，第二次就是true了，表示成功了
+```
 
 
 ### 问题1:
@@ -12,8 +14,6 @@ http://localhost:8080/api?id=888  第一次hit false，第二次就是true了
 
 ### 解答1:
 docker exec -it $(docker ps -qf "name=redis-cluster") redis-cli CONFIG SET cluster-announce-ip redis-cluster
-
-
 
 
 ### maybe问题2:
