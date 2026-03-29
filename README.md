@@ -41,3 +41,9 @@ docker exec -it $(docker ps -qf "name=redis-cluster") redis-cli cluster addslots
 #### 笔记
 https://docs.google.com/document/d/1GO6dURy8AAA1jj7qV37VyAvGOjwPg4mIZupQJq6aZUk/edit?tab=t.0
 
+
+
+```
+AI说我这个只是开启了集群模式，但节点数量不够，集群无法工作
+参考pdf文件，让它生成了下方案，自己没试过。
+```
